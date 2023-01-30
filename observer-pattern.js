@@ -11,36 +11,36 @@ class Telephone {
         this.observers.delete(observer)
     }
 
-    dailPhoneNumber(num){
-        if (this.observers.has(num)){
-
+    dailPhoneNumber(observer){
+        if ([...this.observers][0].num === observer.num){
+            return observer.notify(observer.num)
         }
+        return observer.notify(`Now dailing ${observer.num}`)
     }
 }
 
 class Observer{
-    constructor(){
-
+    constructor(num){
+        this.num = num
     }
 
-    call(num){
-
+    notify(context){
+        return context
     }
 }
 
+// Instantiation of classes
 const telephone = new Telephone();
 const raymond = new Observer('09034067594');
 const lucky = new Observer('09045797345');
 const frank = new Observer('09097689087');
 telephone.addPhoneNumber(raymond);
-telephone.addPhoneNumber(lucky);
 telephone.addPhoneNumber(frank);
+telephone.addPhoneNumber(lucky);
 telephone.removePhoneNumber(raymond);
 
+// This prints the phone number
+console.log(telephone.dailPhoneNumber(frank));
 
-
-
-console.log(telephone.observers);
-
-
-console.log(telephone);
+// Thisi prints 'Now dailing <number>'
+console.log(telephone.dailPhoneNumber(lucky));
